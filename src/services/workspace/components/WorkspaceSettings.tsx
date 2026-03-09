@@ -130,7 +130,7 @@ export const WorkspaceSettingsModal = ({ workspaceId, workspaceName, isArchived,
                   onDeleteWorkspace()
                }}
             >
-               <Button className="bg-red-700 dark:bg-red-800 hover:bg-red-400 dark:hover:bg-red-400 transition-colors">
+               <Button variant='destructive'>
                   {t('workspace.deleteLabel')}
                </Button>
             </AlertDialogBlock>

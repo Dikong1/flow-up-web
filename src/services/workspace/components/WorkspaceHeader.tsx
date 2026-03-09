@@ -113,7 +113,7 @@ export const WorkspaceHeader = ({ workspace, permissions, }: IProps) => {
                   actionLabel={t("common.yes")}
                   onClickAction={handleLeaveWorkspace}
                >
-                  <Button className="bg-red-700 dark:bg-red-800 hover:bg-red-400 dark:hover:bg-red-400 transition-colors">
+                  <Button variant='destructive'>
                      {t(`workspace.leave`)}
                   </Button>
                </AlertDialogBlock>

@@ -80,11 +80,11 @@ const WorkspacePage = () => {
             </div>
             <BoardList boards={workspace.boards} />
          </div>
-         <div className="pt-5 flex gap-10 max-2xl:flex-col-reverse max-2xl:gap-12">
-            <div className="flex-auto min-h-[250px] max-2xl:h-[250px]">
+         <div className="pt-5 flex gap-10 max-2xl:flex-col-reverse max-2xl:gap-12 max-md:gap-6 max-xs:gap-3!">
+            <div className="flex-auto">
                <WorkspaceRecent workspaceId={workspace.id} />
             </div>
-            <div className="flex-[0_0_30%] max-2xl:flex-auto max-2xl:h-[250px]">
+            <div className="flex-[0_0_30%] max-2xl:flex-auto flex flex-col">
                <WorkspaceMembers
                   permissions={permissions}
                   workspaceId={workspace.id}

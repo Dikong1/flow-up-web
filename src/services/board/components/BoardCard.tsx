@@ -5,6 +5,7 @@ import { cn } from "@/shared/utils/cn";
 import { formatActivityTime } from "@/shared/lib/formate-activity-time";
 import { useWorkspacePermissions } from "@/shared/hooks/use-workspace-permissions";
 import { BoardCardImage } from "./BoardCardImage";
+import { BoardCardUploadImage } from "./BoardCardUploadImage";
 import { routes } from "@/shared/routes";
 
 interface IProps {
@@ -33,10 +34,7 @@ export const BoardCard = ({ id, title, image, updatedAt, workspaceId }: IProps) 
          <CardContent className="p-0 relative">
             <BoardCardImage
                title={title}
-               canUploadImage={permissions.canDeleteBoard}
                image={image}
-               workspaceId={workspaceId}
-               boardId={id}
             />
             <div className="p-3">
                <CardTitle className="text-base font-semibold leading-tight truncate">
@@ -49,6 +47,7 @@ export const BoardCard = ({ id, title, image, updatedAt, workspaceId }: IProps) 
                </div>
             </div>
             <Link to={routes.board({ workspaceId, boardId: id })} className="absolute inset-0 z-0" />
+            <BoardCardUploadImage workspaceId={workspaceId} boardId={id} canEditImage={permissions.canEditWorkspace} />
          </CardContent>
       </Card>
    );

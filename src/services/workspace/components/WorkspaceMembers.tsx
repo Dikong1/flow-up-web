@@ -80,10 +80,8 @@ export const WorkspaceMembers = ({ workspaceId, permissions }: IWorkspaceMembers
                </button>
             )}
          </div>
-         <div className="border rounded-lg py-2 px-5 h-full">
-            <div className={cn("flex flex-col h-full relative", { 'justify-center items-center': isEmpty || isLoading || isError })}>
-               {renderMembers}
-            </div>
+         <div className={cn("flex border rounded-lg py-2 px-5 flex-col h-full relative min-h-64", { 'justify-center items-center': isEmpty || isLoading || isError })}>
+            {renderMembers}
          </div>
       </>
    );

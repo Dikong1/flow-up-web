@@ -12,14 +12,15 @@ export const useLogin = () => {
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 	const location = useLocation()
-	const from = location.state?.from?.pathname || routes.home()
+	const from = location.state?.from?.pathname
+	const navigateTo = from && from !== '/' ? from : routes.home()
 	const [login, { isLoading, isError }] = useLoginMutation()
 
 	const handleLogin = async (formData: LoginBody) => {
 		try {
 			const res = await login({ body: formData }).unwrap()
 			dispatch(setToken(res.accessToken))
-			navigate(from, { replace: true })
+			navigate(navigateTo, { replace: true })
 			toast.success(t("auth.loginSuccess"))
 		} catch {
 			toast.error(t("auth.loginError"))

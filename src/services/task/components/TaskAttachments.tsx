@@ -22,6 +22,8 @@ export const TaskAttachments = ({ boardId, colId, taskId, attachments }: IProps)
    const objectUrlRef = useRef<string | null>(null);
 
    const handleDownload = async (attId: string, fileName: string) => {
+      const toastId = toast.loading(t("task.attachments.downloadLoading"));
+
       try {
          const { url } = await getDownloadUrl({
             boardId,
@@ -52,8 +54,10 @@ export const TaskAttachments = ({ boardId, colId, taskId, attachments }: IProps)
 
          URL.revokeObjectURL(objectUrl);
          objectUrlRef.current = null;
+
+         toast.dismiss(toastId);
       } catch (e: any) {
-         toast.error(t("task.attachments.downloadFailed"));
+         toast.error(t("task.attachments.downloadError"), { id: toastId });
       }
    };
 

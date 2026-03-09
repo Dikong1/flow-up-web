@@ -33,7 +33,7 @@ export const TaskBlock = ({ taskRecent }: IProps) => {
                   <ArrowRight size={18} className="mt-0.5 hover:text-foreground/70 transition-colors" />
                </Link>
             </CardTitle>
-            <span className="text-sm text-muted-foreground">{taskBreadcrumbs}</span>
+            <span className="text-sm text-muted-foreground truncate">{taskBreadcrumbs}</span>
          </CardHeader>
          <CardContent className="text-sm text-muted-foreground pt-1">
             <span>{formatActivityTime(taskRecent.lastOpenedAt)}</span>

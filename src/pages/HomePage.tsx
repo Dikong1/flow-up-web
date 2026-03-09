@@ -50,12 +50,10 @@ const HomePage = () => {
             }}
             className="w-full"
          >
-            <CarouselContent className="gap-5">
+            <CarouselContent className="">
                {data.map((item, index) => (
-                  <CarouselItem key={index} className="basis-1/2 lg:basis-1/5">
-                     <div className="p-1">
-                        <TaskBlock taskRecent={item} />
-                     </div>
+                  <CarouselItem key={index} className="basis-auto">
+                     <TaskBlock taskRecent={item} />
                   </CarouselItem>
                ))}
             </CarouselContent>
@@ -66,11 +64,11 @@ const HomePage = () => {
    })()
 
    return (
-      <>
+      <div className="w-full">
          <AnimatedTitle>
             {t(`home.${getRandomTitle()}`)}
          </AnimatedTitle>
-         <div className="w-5xl mx-auto pt-10">
+         <div className="w-full max-w-5xl mx-auto pt-10">
             <h2 className="text-lg flex items-center gap-1.5 mb-1">
                <History size={20} className="mt-0.5" color="#9a9fa5" />
                <span className="text-muted-foreground">
@@ -79,7 +77,7 @@ const HomePage = () => {
             </h2>
             {content}
          </div>
-      </>
+      </div>
    );
 };
 

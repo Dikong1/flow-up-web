@@ -97,7 +97,7 @@ export const AppSidebar = () => {
    };
 
    return (
-      <Sidebar collapsible="icon" className="z-1000 shrink-0">
+      <Sidebar className="z-1000 shrink-0">
          <SidebarHeader>
             <SidebarMenuButton asChild>
                <button type="button" onClick={handleOpenProfile}>

@@ -1,13 +1,13 @@
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { useCreateTaskMutation } from "../api/hooks";
 import { Button } from "@/shared/ui/shadcn/button";
 import { Input } from "@/shared/ui/shadcn/input";
-import { useForm } from "react-hook-form";
-import { createTaskSchema, type CreateTaskFormValues } from "../schemas/create-task.schema";
 import { Label } from "@/shared/ui/shadcn/label";
 import { cn } from "@/shared/utils/cn";
+import { createTaskSchema, type CreateTaskFormValues } from "../schemas/create-task.schema";
 
 interface IProps {
    close: () => void;

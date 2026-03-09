@@ -11,16 +11,18 @@ interface IProps {
 export const BoardMembers = ({ workspaceId, boardId }: IProps) => {
    const { data: members, isLoading } = useGetBoardMembersQuery({ workspaceId, boardId })
 
+   if (isLoading) return (
+      <div className="py-2">
+         <Spinner className="mx-auto size-5" />
+      </div>
+   )
+
    return (
       <div>
          {
-            isLoading ? (
-               <Spinner className="mx-auto" />
-            ) : (
-               members?.map(member => (
-                  <BoardMember key={member.userId} workspaceId={workspaceId} boardId={boardId} member={member} />
-               ))
-            )
+            members?.map(member => (
+               <BoardMember key={member.userId} workspaceId={workspaceId} boardId={boardId} member={member} />
+            ))
          }
       </div>
    );

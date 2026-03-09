@@ -268,6 +268,8 @@
       "loadError": "Не удалось получить задачу",
       "subtasksTitle": "Подзадачи",
       "attachmentsTitle": "Вложения",
+      "subtaskCreateLoading": "Создание подзадачи...",
+      "subtaskCreateSuccess": "Подзадача успешно создана",
       "subtaskPlaceholder": "Добавить подзадачу",
       "subtaskCreateError": "Не удалось создать подзадачу",
       "subtaskUpdateError": "Ошибка при обновлении подзадачи",
@@ -293,7 +295,9 @@
          "deleteConfirmTitle": "Вы действительно хотите удалить вложение?",
          "deleteConfirmDescription": "Это действие необратимо.",
          "deleteSuccess": "Вложение успешно удалено",
-         "deleteError": "Не удалось удалить вложение"
+         "deleteError": "Не удалось удалить вложение",
+         "downloadLoading": "Скачивание...",
+         "downloadError": "Произошла ошибка при скачивании, попробуйте позже"
       },
       "open": "Открыть задачу",
       "moveHereLable": "Перетащи задачу сюда",
@@ -375,7 +379,9 @@
    },
    "comments": {
       "title": "Комментарии",
-      "addComment": "Добавить комментарий"
+      "addComment": "Добавить комментарий",
+      "errorLoad": "Произошла ошибка при загрузке комментариев.",
+      "empty": "Комментариев пока нет"
    },
    "notifications": {
       "title": "Уведомления",

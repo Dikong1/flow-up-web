@@ -55,7 +55,7 @@ export const EditColumn = ({ title, boardId, colId, color, status }: IProps) => 
    return (
       <Popover open={open} onOpenChange={setOpen}>
          <PopoverTrigger asChild>
-            <Button className="group" size="icon" variant="ghost">
+            <Button size="icon" variant="ghost">
                <Pencil className="text-white hover:text-black" />
             </Button>
          </PopoverTrigger>

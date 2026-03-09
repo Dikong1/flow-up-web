@@ -25,7 +25,7 @@ export const TaskSheet = () => {
          onOpenChange={setOpen}
       >
          <SheetContent className="
-            overflow-y-scroll
+            overflow-y-auto
             w-full
             md:w-[45%]
             py-14 px-16 
@@ -36,7 +36,9 @@ export const TaskSheet = () => {
             <SheetTitle className="sr-only">
                {t('common.edit')}
             </SheetTitle>
-            {taskId && colId && <TaskDetails close={() => setSearchParams({})} colId={colId} taskId={taskId} />}
+            <div className="h-full relative">
+               {taskId && colId && <TaskDetails close={() => setSearchParams({})} colId={colId} taskId={taskId} />}
+            </div>
          </SheetContent>
       </Sheet>
    );

@@ -36,6 +36,7 @@ import { TaskCommentsList } from "./TaskCommentsList";
 import { TaskCommentsAdd } from "./TaskCommentsAdd";
 import type { IUpdateTaskDto } from "../types";
 import type { IUser } from "@/services/user/types/user";
+import { Spinner } from "@/shared/ui/shadcn/spinner";
 
 interface IProps {
    taskId: string;
@@ -79,7 +80,9 @@ export const TaskDetails = ({ taskId, colId, close }: IProps) => {
    }, [taskId])
 
    if (isLoading) {
-      return <div className="p-6">{t("common.loading")}</div>;
+      return <div className="flex justify-center absolute top-1/2 w-full -translate-y-1/2">
+         <Spinner className="size-9" />
+      </div>
    }
 
    if (isError) {
@@ -91,6 +94,8 @@ export const TaskDetails = ({ taskId, colId, close }: IProps) => {
    }
 
    const handleCreateSubtask = async (title: string) => {
+      const toastId = toast.loading(t("task.subtaskCreateLoading"));
+
       try {
          const createdSubtask = await createSubtask({
             boardId,
@@ -108,12 +113,17 @@ export const TaskDetails = ({ taskId, colId, close }: IProps) => {
                }
             )
          )
+
+         toast.success(t('task.subtaskCreateSuccess'), { id: toastId })
       } catch (error) {
-         toast.error(t("task.subtaskCreateError"))
+         toast.error(t("task.subtaskCreateError"), { id: toastId })
       }
    };
 
-   const handleUpdateDetails = (fields: Partial<IUpdateTaskDto>, assignee?: Pick<IUser, 'id' | 'username' | 'avatar' | 'fullName'> | null) => {
+   const handleUpdateDetails = (
+      fields: Partial<IUpdateTaskDto>,
+      assignee?: Pick<IUser, 'id' | 'username' | 'avatar' | 'fullName'> | null
+   ) => {
       updateTask({
          boardId,
          colId: task.colId,
@@ -139,7 +149,7 @@ export const TaskDetails = ({ taskId, colId, close }: IProps) => {
    }
 
    return (
-      <div className="relative">
+      <div className="relative py-2">
          <SheetHeader>
             <SheetTitle className="text-4xl mb-3 max-md:text-3xl max-sm:text-2xl">
                <ContentEditable
@@ -154,7 +164,7 @@ export const TaskDetails = ({ taskId, colId, close }: IProps) => {
                   className="font-bold outline-none border-b border-transparent focus:border-blue-500 line-clamp-4"
                />
             </SheetTitle>
-            <div className="flex gap-5">
+            <div className="flex gap-5 flex-wrap">
                <TaskAssignee taskAssignee={task.assignee}
                   handleAssigneeChange={assignee => {
                      handleUpdateDetails({ assigneeId: assignee?.id }, assignee);
@@ -174,14 +184,14 @@ export const TaskDetails = ({ taskId, colId, close }: IProps) => {
                />
             </div>
             <div className="mt-5">
-               <h2 className="text-xl font-medium mb-2">{t("comments.title")}</h2>
+               <h2 className="text-xl max-sm:text-lg font-medium mb-2">{t("comments.title")}</h2>
                <div>
                   <TaskCommentsList boardId={boardId} colId={colId} taskId={taskId} />
                   <TaskCommentsAdd boardId={boardId} colId={colId} taskId={taskId} />
                </div>
             </div>
             <div className="mt-5">
-               <h2 className="text-xl font-medium mb-2">{t("task.description")}</h2>
+               <h2 className="text-xl max-sm:text-lg font-medium mb-2">{t("task.description")}</h2>
                <ContentEditable
                   html={description || ""}
                   onChange={e => setDescription(e.target.value)}
@@ -201,7 +211,7 @@ export const TaskDetails = ({ taskId, colId, close }: IProps) => {
                />
             </div>
             <div className="mt-5">
-               <h2 className="text-xl font-medium mb-2">{t("task.subtasksTitle")}</h2>
+               <h2 className="text-xl max-sm:text-lg font-medium mb-2">{t("task.subtasksTitle")}</h2>
                <div className="space-y-1">
                   {task.todos?.map(todo => (
                      <TaskSubtask
@@ -215,7 +225,7 @@ export const TaskDetails = ({ taskId, colId, close }: IProps) => {
                </div>
             </div>
             <div className="mt-5">
-               <h2 className="text-xl font-medium mb-2">{t("task.attachmentsTitle")}</h2>
+               <h2 className="text-xl max-sm:text-lg font-medium mb-2">{t("task.attachmentsTitle")}</h2>
                <div className="">
                   <TaskAttachments attachments={task.attachments} boardId={boardId} colId={colId} taskId={taskId} />
                </div>
@@ -224,8 +234,12 @@ export const TaskDetails = ({ taskId, colId, close }: IProps) => {
          {
             permissions?.canDeleteTask && (
                <div onClick={() => setOpenAlert(true)} className="
-               cursor-pointer absolute bottom-0 right-0 z-10 w-14 h-14 bg-red-700 rounded-full hover:bg-red-400 transition-colors">
-                  <DeleteIcon size={24} color="#fff" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform" />
+               cursor-pointer absolute bottom-1 right-0 z-10 w-14 h-14 bg-red-700 rounded-full hover:bg-red-400 transition-colors
+                  max-xs:w-12 max-xs:h-12
+               ">
+                  <DeleteIcon color="#fff" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform
+                     max-xs:size-5
+                  " />
                </div>
             )
          }

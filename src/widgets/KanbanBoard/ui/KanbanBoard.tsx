@@ -82,11 +82,14 @@ export const KanbanBoard = ({ boardId }: IProps) => {
    }, [isLoading, isError, localColumns, t, error]);
 
    return (
-      <div className={cn(
-         "overflow-x-auto pb-5",
-         "overscroll-contain scrollbar-gutter-stable",
-         "scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent hover:scrollbar-thumb-border",
-      )}>
+      <div
+         className={cn(
+            "overflow-x-auto overflow-y-hidden pb-5",
+            "overscroll-x-contain overscroll-y-auto",
+            "scrollbar-gutter-stable",
+            "scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent hover:scrollbar-thumb-border",
+         )}
+      >
          {content}
       </div>
    );

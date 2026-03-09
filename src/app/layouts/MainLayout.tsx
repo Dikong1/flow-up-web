@@ -26,7 +26,7 @@ export const MainLayout = () => {
             <SidebarProvider>
                <AppSidebar />
                <main className="flex-1 min-w-0">
-                  <SidebarTrigger className="pl-2 pt-5" />
+                  <SidebarTrigger />
                   <div className="py-5 px-16 max-xl:px-8 max-xl:py-2 max-md:py-1 max-md:px-5 max-sm:px-3">
                      <Outlet />
                   </div>
