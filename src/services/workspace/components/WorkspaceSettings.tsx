@@ -43,6 +43,9 @@ export const WorkspaceSettingsModal = ({ workspaceId, workspaceName, isArchived,
       selectedIcon !== initialState.current.icon;
 
    const handleSave = async () => {
+      const toastId = toast.loading(t('common.saving'))
+      close();
+
       const payload = {
          title,
          archived,
@@ -59,12 +62,10 @@ export const WorkspaceSettingsModal = ({ workspaceId, workspaceName, isArchived,
             }
          }).unwrap();
 
-         toast.success(t("workspace.updateSuccess"));
+         toast.success(t("workspace.updateSuccess"), { id: toastId });
       } catch (error) {
-         toast.error(t("workspace.updateError"));
+         toast.error(t("workspace.updateError"), { id: toastId });
       }
-
-      close()
    };
 
    return (
