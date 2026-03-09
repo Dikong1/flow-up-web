@@ -52,7 +52,7 @@ export const ChangeRoleMember = ({ member, workspaceId, close }: IProps) => {
                </div>
             </div>
          </div>
-         <div>
+         <div className="mb-2">
             <Label className="mb-1 text-sm">{t("workspace.roleLabel")}</Label>
             <Select value={role} onValueChange={(value: TWorkspaceRole) => setRole(value)}>
                <SelectTrigger className="w-[180px]">
