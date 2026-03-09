@@ -5,7 +5,6 @@ import { Spinner } from "@/shared/ui/shadcn/spinner";
 import { Button } from "@/shared/ui/shadcn/button";
 import { useClickOutside } from "@/shared/hooks/use-click-outside";
 import { cn } from "@/shared/utils/cn";
-import { useSidebar } from "@/shared/ui/shadcn/sidebar";
 import type { Notification } from "../types/notification";
 
 interface IProps {
@@ -20,7 +19,6 @@ interface IProps {
 export const NotificationList = ({ open, close, notifications, isLoading, isError, refetch }: IProps) => {
    const { t } = useTranslation();
    const ref = useClickOutside<HTMLDivElement>(close);
-   const { state: openSidebar } = useSidebar();
 
    const isEmptyList =
       !isLoading &&
@@ -35,17 +33,17 @@ export const NotificationList = ({ open, close, notifications, isLoading, isErro
       if (isError) {
          return (
             <div className="text-center flex flex-col items-center gap-1">
-               <span className="text-red-600 font-medium">
+               <span className="text-destructive font-medium">
                   {t("notifications.error")}
                </span>
-               <Button variant="ghost" onClick={() => refetch()} aria-label="Notifications">
-                  <RotateCcw className="text-black dark:text-white" />
+               <Button variant="ghost" onClick={refetch} aria-label={t('notifications.title')}>
+                  <RotateCcw />
                </Button>
             </div>
          );
       }
 
-      if ((notifications?.length ?? 0) === 0) {
+      if (isEmptyList) {
          return <div className="font-medium italic">{t("notifications.empty")}</div>;
       }
 
@@ -53,7 +51,6 @@ export const NotificationList = ({ open, close, notifications, isLoading, isErro
          <NotificationItem
             key={item.id}
             notification={item}
-            onOpenTask={(taskId) => console.log("open task", taskId)}
          />
       ));
    })();
@@ -62,20 +59,28 @@ export const NotificationList = ({ open, close, notifications, isLoading, isErro
       <div
          ref={ref}
          className={cn(
-            "fixed top-0 -left-full h-screen max-h-screen w-[350px] bg-background border z-1000 transition-all duration-350 px-5 py-3 overflow-y-auto",
-            "overscroll-contain scrollbar-gutter-stable",
-            "scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent hover:scrollbar-thumb-border",
-            open && `${openSidebar === 'expanded' ? 'left-(--sidebar-width)' : 'left-[47px]'}`
+            "fixed top-0 -left-[120%] h-dvh transition-all duration-350 px-4 py-3",
+            "w-[350px] bg-background border z-1000",
+            open && "left-(--sidebar-width) max-lg:w-full max-lg:left-0",
          )}
       >
-         <div className="flex justify-between items-center mb-5">
-            <span className="font-medium text-base">{t("notifications.title")}</span>
-            <Button variant="ghost" onClick={close}>
-               <PanelLeftClose />
-            </Button>
-         </div>
-         <div className={cn("flex flex-col gap-3 justify-center", isEmptyList && "h-full items-center")}>
-            {content}
+         <div className="flex h-full flex-col">
+            <div className="flex justify-between items-center mb-5 shrink-0">
+               <span className="font-medium text-base">{t("notifications.title")}</span>
+               <Button variant="ghost" onClick={close}>
+                  <PanelLeftClose />
+               </Button>
+            </div>
+            <div
+               className={cn(
+                  "flex-1 overflow-y-auto overscroll-contain scrollbar-gutter-stable scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent hover:scrollbar-thumb-border",
+                  isEmptyList || isLoading || isError
+                     ? "flex items-center justify-center"
+                     : "flex flex-col gap-3 max-sm:gap-2"
+               )}
+            >
+               {content}
+            </div>
          </div>
       </div>
    );

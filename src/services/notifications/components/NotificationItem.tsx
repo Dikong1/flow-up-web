@@ -1,5 +1,5 @@
 import { useMemo } from "react"
-import { Link } from "react-router"
+import { useNavigate } from "react-router"
 import { useTranslation } from "react-i18next"
 import { Check, Bell, ClockAlert, AtSign, UserPlus, UserMinus, RefreshCcw, AlarmClockOff } from "lucide-react"
 import { Card, CardContent } from "@/shared/ui/shadcn/card"
@@ -27,8 +27,9 @@ type UiConfig = {
    description?: string
 }
 
-export const NotificationItem = ({ notification, onOpenTask }: IProps) => {
+export const NotificationItem = ({ notification }: IProps) => {
    const { t } = useTranslation()
+   const navigate = useNavigate()
 
    const [markRead, { isLoading: isMarking }] = useMarkNotificationMutation()
 
@@ -103,14 +104,20 @@ export const NotificationItem = ({ notification, onOpenTask }: IProps) => {
 
    const handleOpen = async () => {
       await handleMarkRead()
-      if (taskId) onOpenTask?.(taskId)
+
+      navigate(routes.task({
+         workspaceId: notification.metadata.workspaceId,
+         boardId: notification.metadata.boardId,
+         colId: notification.metadata.colId,
+         taskId: notification.metadata.taskId
+      }))
    }
 
    return (
       <Card className={cn("transition-colors py-0", isUnread && "border-primary/40 bg-primary/5")}>
-         <CardContent className="px-5 py-3">
+         <CardContent className="px-5 py-3 max-sm:px-4 max-sm:py-2">
             <div className="flex items-center gap-2">
-               <h2 className="truncate text-base font-medium flex items-center gap-1.5">
+               <h2 className="truncate font-medium flex items-center gap-1.5">
                   <div className="shrink-0">{ui.icon}</div>
                   <span className="wrap-break-word whitespace-normal leading-5">{ui.title}</span>
                </h2>
@@ -133,18 +140,10 @@ export const NotificationItem = ({ notification, onOpenTask }: IProps) => {
             <p className="line-clamp-2 text-sm">{ui.description}</p>
             <div className="mt-2 flex items-center justify-between">
                <span className="text-muted-foreground text-sm font-medium">{formatNotificationDate(notification.createdAt)}</span>
-
                {taskId && (
-                  <Link to={routes.task({
-                     workspaceId: notification.metadata.workspaceId,
-                     boardId: notification.metadata.boardId,
-                     colId: notification.metadata.colId,
-                     taskId: notification.metadata.taskId
-                  })}>
-                     <Button variant='outline' size="sm" onClick={handleOpen}>
-                        {t('common.open')}
-                     </Button>
-                  </Link>
+                  <Button variant='outline' size="sm" onClick={handleOpen}>
+                     {t('common.open')}
+                  </Button>
                )}
             </div>
          </CardContent>

@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router";
 import { Home, Settings, LogOut, User, BellDot } from "lucide-react";
-
 import { useModal } from "@/app/providers/ModalProvider";
 import { useGetWorkspacesQuery } from "@/services/workspace/api/hooks/";
 import { CreateWorkspace } from "@/services/workspace/components/CreateWorkspace";
@@ -30,14 +29,11 @@ import { routes } from "@/shared/routes";
 
 export const AppSidebar = () => {
    const { t } = useTranslation();
-
-   const [logoutFromServer] = useLogoutMutation()
-
    const dispatch = useAppDispatch();
    const navigate = useNavigate();
-   const { open, close } = useModal();
-
    const user = useAppSelector(selectUser);
+   const { open, close } = useModal();
+   const [logoutFromServer] = useLogoutMutation()
 
    const {
       data: notifications,
@@ -125,7 +121,9 @@ export const AppSidebar = () => {
                      <SidebarMenuButton asChild>
                         <button
                            type="button"
-                           onClick={() => setOpenNotifications((prev) => !prev)}
+                           onClick={() => {
+                              setOpenNotifications((prev) => !prev);
+                           }}
                            className={cn(
                               openNotifications && "bg-accent text-primary",
                            )}
