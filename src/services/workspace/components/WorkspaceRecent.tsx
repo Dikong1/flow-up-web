@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { ClockFading, ServerCrash, History } from "lucide-react";
-import { ActivityFeed } from "./WorkspaceActivityFeed";
+import { WorkspaceActivityItem } from "./WorkspaceActivityItem";
 import { useGetActivityQuery } from "../api/hooks/";
 import { Spinner } from "@/shared/ui/shadcn/spinner";
 import { cn } from "@/shared/utils/cn";
@@ -43,7 +43,11 @@ export const WorkspaceRecent = ({ workspaceId }: IProps) => {
          </div>
       )
 
-      return <ActivityFeed activities={data} />
+      return (
+         <div className="flex flex-col rounded-lg flex-1">
+            {data.map((activity) => <WorkspaceActivityItem key={activity.id} activity={activity} />)}
+         </div>
+      )
    })()
 
    return (

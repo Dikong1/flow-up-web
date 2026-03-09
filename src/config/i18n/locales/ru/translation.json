@@ -367,12 +367,11 @@
    },
    "activity": {
       "recentTitle": "Последние действия",
-      "taskCreated": "создал задачу",
-      "taskUpdated": "обновил задачу",
-      "taskMoved": "переместил задачу",
-      "toColumn": "в колонку",
-      "taskDeleted": "удалил задачу",
-      "boardCreated": "создал доску",
+      "taskCreated": "<strong>{{user}}</strong> создал задачу <strong>{{taskName}}</strong>",
+      "taskUpdated": "<strong>{{user}}</strong> обновил задачу <strong>{{taskName}}</strong>",
+      "taskMoved": "<strong>{{user}}</strong> переместил задачу <strong>{{taskName}}</strong> в колонку <strong>{{columnName}}</strong>",
+      "taskDeleted": "<strong>{{user}}</strong> удалил задачу <strong>{{taskName}}</strong>",
+      "boardCreated": "<strong>{{user}}</strong> создал доску <strong>{{boardName}}</strong>",
       "emptyTitle": "Нет активности",
       "emptyDescription": "Действия в этом рабочем пространстве будут отображаться здесь.",
       "errorDescription": "Произошла неизвестная ошибка, попробуйте позже"
