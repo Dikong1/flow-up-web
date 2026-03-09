@@ -1,18 +1,17 @@
 import { useState } from "react";
 import { HexColorPicker as ColorPicker } from "react-colorful";
-import { CircleQuestionMark } from "lucide-react";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import { useCreateColumnMutation } from "../api/hooks";
 import { Button } from "@/shared/ui/shadcn/button";
 import { Input } from "@/shared/ui/shadcn/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/shared/ui/shadcn/select"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/shadcn/tooltip"
 import { Label } from "@/shared/ui/shadcn/label";
-import { COLUMN_STATUS_LABELS } from "../constants/column-status";
 import { getErrorMessage } from "@/shared/utils/get-error-message";
-import type { TColumnStatus } from "../types/column-status";
 import { Spinner } from "@/shared/ui/shadcn/spinner";
+import { COLUMN_STATUS_LABELS } from "../constants/column-status";
+import type { TColumnStatus } from "../types/column-status";
+import { ColumnStatusTooltip } from "./ColumnStatusTooltip";
 
 interface IProps {
    boardId: string,
@@ -61,28 +60,7 @@ export const CreateColumn = ({ boardId, close }: IProps) => {
             <div>
                <div className="flex items-center justify-between">
                   <Label htmlFor="create-column-status" className="text-base mb-1">{t("column.createStatusLabel")}</Label>
-                  <Tooltip>
-                     <TooltipTrigger asChild>
-                        <CircleQuestionMark size={20} className="text-[#8d8d8d]" />
-                     </TooltipTrigger>
-                     <TooltipContent side="top" className="max-w-[250px] space-y-2 font-medium">
-                        <p>
-                           {t("column.statusHelp1")}
-                        </p>
-                        <p>
-                           {t("column.statusHelp2")}
-                        </p>
-                        <p>
-                           {t("column.statusHelp3")}
-                        </p>
-                        <p>
-                           {t("column.statusHelp4")}
-                        </p>
-                        <p>
-                           {t("column.statusHelp5")}
-                        </p>
-                     </TooltipContent>
-                  </Tooltip>
+                  <ColumnStatusTooltip />
                </div>
                <div id="create-column-status">
                   <Select value={status} onValueChange={(value) => setStatus(value as TColumnStatus)}>
