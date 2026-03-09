@@ -378,7 +378,10 @@
       "title": "Comments",
       "addComment": "Add a comment",
       "errorLoad": "There was an error loading comments.",
-      "empty": "There are no comments yet"
+      "empty": "There are no comments yet",
+      "addCommentLoading": "Adding a comment...",
+      "addCommentSuccess": "Comment successfully added",
+      "addCommentError": "There was an error adding a comment"
    },
    "notifications": {
       "title": "Notifications",

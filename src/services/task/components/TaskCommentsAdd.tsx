@@ -141,13 +141,17 @@ export const TaskCommentsAdd = ({ boardId, colId, taskId }: IProps) => {
       e.preventDefault();
       if (!value.trim()) return;
 
+      const toastId = toast.loading(t('comments.addCommentLoading'))
+
       try {
          await addComment({ boardId, colId, taskId, body: { content: value } }).unwrap();
          setValue("");
          setCursorPos(0);
          closeMentions();
+
+         toast.success(t('comments.addCommentSuccess'), { id: toastId })
       } catch {
-         toast.error("Failed to add comment");
+         toast.error(t('comments.addCommentError'), { id: toastId })
       }
    };
 
