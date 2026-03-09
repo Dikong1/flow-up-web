@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { toast } from 'sonner';
 import { useCheckInviteQuery, useJoinWorkspaceMutation } from '@/services/workspace/api/hooks/';
@@ -7,8 +7,9 @@ import { Button } from '@/shared/ui/shadcn/button';
 import { Spinner } from '@/shared/ui/shadcn/spinner';
 import { getWorkspaceRole } from '@/shared/lib/get-workspace-role';
 import { useTranslation } from 'react-i18next';
+import { routes } from '@/shared/routes';
 
-const WorkspaceInvitePage: FC = () => {
+const WorkspaceInvitePage = () => {
 	const [open, setOpen] = useState(true)
 	const { t } = useTranslation()
 
@@ -29,7 +30,7 @@ const WorkspaceInvitePage: FC = () => {
 				loading: t("workspace.inviteLoading"),
 				success: (result) => {
 					setOpen(false)
-					navigate(`/workspaces/${data?.workspaceId}`)
+					navigate(routes.workspace({ workspaceId: data?.workspaceId ?? '' }))
 
 					if (typeof result === 'object' && 'message' in result) {
 						return result.message
@@ -69,4 +70,4 @@ const WorkspaceInvitePage: FC = () => {
 	);
 };
 
-export default WorkspaceInvitePage
+export default WorkspaceInvitePage;
