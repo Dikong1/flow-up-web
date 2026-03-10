@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { useTranslation } from "react-i18next";
 import { ExternalLink, Trash2 } from "lucide-react";
 import { toast } from "sonner";
@@ -18,7 +17,7 @@ interface IProps {
    dragHandleProps?: DraggableProvidedDragHandleProps | null;
 }
 
-export const TaskCard = memo(({ task, color, openTask, dragHandleProps }: IProps) => {
+export const TaskCard = ({ task, color, openTask, dragHandleProps }: IProps) => {
    const { t } = useTranslation()
 
    const [deleteTask] = useDeleteTaskMutation()
@@ -112,14 +111,4 @@ export const TaskCard = memo(({ task, color, openTask, dragHandleProps }: IProps
          </div>
       </div>
    );
-}, (prev, next) => {
-   return (
-      prev.task.id === next.task.id &&
-      prev.task.name === next.task.name &&
-      prev.task.order === next.task.order &&
-      prev.task.colId === next.task.colId &&
-      prev.color === next.color
-   );
-});
-
-TaskCard.displayName = "TaskCard";
+}
