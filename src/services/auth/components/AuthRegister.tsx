@@ -1,7 +1,4 @@
 import { useForm } from "react-hook-form";
-import { useRegister } from '../hooks/use-register';
-import { toast } from 'sonner';
-import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/shared/utils/cn";
@@ -13,6 +10,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { GOOGLE_LOGIN_URL } from '../constants/google-login-url';
 import { registerSchema, type TRegisterFormValues } from "../schemas/register-schema";
 import image from '@/assets/images/auth.png'
+import { useRegisterMutation } from "../api/hooks";
+import { toast } from "sonner";
+import { getErrorMessage } from "@/shared/utils/get-error-message";
+import { Spinner } from "@/shared/ui/shadcn/spinner";
 
 interface IProps {
 	setHaveAccount: () => void;
@@ -20,9 +21,8 @@ interface IProps {
 }
 
 export const AuthRegister = ({ setHaveAccount, className }: IProps) => {
-	const { t } = useTranslation();
-	const navigate = useNavigate();
-	const { handleRegister, err } = useRegister();
+	const { t } = useTranslation()
+	const [register, { error, isLoading }] = useRegisterMutation()
 
 	const form = useForm<TRegisterFormValues>({
 		resolver: zodResolver(registerSchema),
@@ -37,16 +37,21 @@ export const AuthRegister = ({ setHaveAccount, className }: IProps) => {
 
 	const onSubmit = async (values: TRegisterFormValues) => {
 		try {
-			await handleRegister({
-				fullName: values.fullName,
-				email: values.email,
-				username: values.username,
-				password: values.password,
+			await register({
+				body: {
+					fullName: values.fullName,
+					email: values.email,
+					username: values.username,
+					password: values.password,
+				}
 			})
-			navigate('/auth/confirm-email')
-		} catch (e) {
-			toast.error(`${err}`);
+
+			toast.success(t("auth.registerSuccess"))
+		} catch (err) {
+			toast.error(`${t("auth.registerError")}: ${getErrorMessage(error)}`)
 		}
+
+		setHaveAccount()
 	};
 
 	const loginGoogle = () => {
@@ -145,8 +150,8 @@ export const AuthRegister = ({ setHaveAccount, className }: IProps) => {
 								{t("auth.passwordHint", { defaultValue: "Must be at least 8 characters long." })}
 							</p>
 
-							<Button type="submit" className="w-full">
-								{t("auth.createAccount")}
+							<Button disabled={isLoading} type="submit" className="w-full">
+								{isLoading ? <Spinner /> : t("auth.createAccount")}
 							</Button>
 
 							<FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
