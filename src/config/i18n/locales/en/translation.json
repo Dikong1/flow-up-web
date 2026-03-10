@@ -34,7 +34,8 @@
       "dangerZone": "Danger zone",
       "getStarted": "Get started",
       "slogan": "Structured Work. Real Progress.",
-      "name": "Name"
+      "name": "Name",
+      "deleting": "Deleting..."
    },
    "intro": {
       "title": "Flow Up — Task & Project Management Platform",
@@ -164,7 +165,8 @@
       "deleteTitle": "Are you sure you want to delete this workspace?",
       "deleteDescription": "This will delete all boards, columns, attachments, etc.",
       "deleteSuccess": "Workspace successfully deleted.",
-      "deleteError": "An error occurred while deleting the workspace."
+      "deleteError": "An error occurred while deleting the workspace.",
+      "leaveLoading": "Leaving..."
    },
    "workspaceRole": {
       "owner": "Owner",
@@ -182,6 +184,18 @@
       "title": "Board",
       "create": "Create board",
       "createNew": "Create new board",
+      "template": "Template",
+      "templates": {
+         "empty": {
+            "title": "Blank Board",
+            "description": "Start with a blank slate and write your columns manually."
+         },
+         "default": {
+            "title": "Default Columns",
+            "description": "Automatically generates To Do, In Progress, and Done columns."
+         }
+      },
+      "createDescription": "Create a board to start organizing your tasks and work. You can begin with an empty board or choose a template.",
       "rename": "Rename board",
       "delete": "Delete board",
       "empty": "No tasks yet",

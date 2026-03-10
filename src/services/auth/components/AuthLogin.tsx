@@ -11,6 +11,7 @@ import { useLogin } from '../hooks/use-login';
 import { GOOGLE_LOGIN_URL } from '../constants/google-login-url';
 import { loginSchema, type TLoginFormValues } from '../schemas/login-schema';
 import image from '@/assets/images/auth.png'
+import { Spinner } from "@/shared/ui/shadcn/spinner";
 
 interface IProps {
 	setHaveAccount: () => void;
@@ -19,7 +20,7 @@ interface IProps {
 
 export const AuthLogin = ({ setHaveAccount, className }: IProps) => {
 	const { t } = useTranslation();
-	const { handleLogin } = useLogin();
+	const { handleLogin, isLoading } = useLogin();
 
 	const form = useForm<TLoginFormValues>({
 		resolver: zodResolver(loginSchema),
@@ -81,8 +82,8 @@ export const AuthLogin = ({ setHaveAccount, className }: IProps) => {
 									</FormItem>
 								)}
 							/>
-							<Button type="submit" className="w-full">
-								{t("auth.login")}
+							<Button disabled={isLoading} type="submit" className="w-full">
+								{isLoading ? <Spinner /> : t("auth.login")}
 							</Button>
 							<FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
 								{t("auth.orContinue")}

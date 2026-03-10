@@ -11,6 +11,7 @@ import { Button } from "@/shared/ui/shadcn/button";
 import { useGetIcon } from "@/shared/hooks/use-get-icon";
 import { getErrorMessage } from "@/shared/utils/get-error-message";
 import { AlertDialogBlock } from "@/shared/ui/AlertDialogBlock";
+import { routes } from "@/shared/routes";
 import type { IWorkspace } from "../types/workspace";
 import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import type { IWorkspacePermission } from "../types/workspace-permission";
@@ -33,21 +34,23 @@ export const WorkspaceHeader = ({ workspace, permissions, }: IProps) => {
    const handleCreateBoard = () => {
       open({
          title: t("board.createNew"),
-         description: "",
+         description: t("board.createDescription"),
          content: <CreateBoard close={close} workspaceId={workspace.id} />,
       });
    };
 
    const handleDeleteWorkspace = async () => {
+      const toastId = toast.loading(t('common.deleting'))
+
       try {
          await deleteWorkspace({
             id: workspace.id
          }).unwrap()
 
-         toast.success(t('workspace.deleteSuccess'))
-         navigate('/')
+         toast.success(t('workspace.deleteSuccess'), { id: toastId })
+         navigate(routes.home())
       } catch (error) {
-         toast.success(t('workspace.deleteError'))
+         toast.success(t('workspace.deleteError'), { id: toastId })
       }
    }
 
@@ -69,11 +72,12 @@ export const WorkspaceHeader = ({ workspace, permissions, }: IProps) => {
    };
 
    const handleLeaveWorkspace = async () => {
+      toast.loading(t('workspace.leaveLoading'))
       try {
          await leaveWorkspace(workspace.id).unwrap();
 
          toast.success(t("workspace.leaveSuccess"));
-         navigate("/");
+         navigate(routes.home())
       } catch (error) {
          toast.error(getErrorMessage(error as FetchBaseQueryError));
       }

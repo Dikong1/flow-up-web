@@ -24,7 +24,10 @@ export const boardApi = baseApi.injectEndpoints({
 			query: ({ workspaceId, body }) => ({
 				url: boardRoutes.root(workspaceId),
 				method: "POST",
-				body,
+				body: {
+					name: body.name,
+					...(body.template !== "empty" && { template: body.template }),
+				}
 			}),
 			invalidatesTags: (_, __, { workspaceId }) => [
 				{ type: "Workspace", id: workspaceId },

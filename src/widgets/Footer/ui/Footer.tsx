@@ -13,7 +13,7 @@ export const Footer = () => {
                   <MainLogo />
                </Link>
                <p className="text-sm text-muted-foreground mt-2">
-                  {t('footer.tagline')}
+                  {t('common.slogan')}
                </p>
             </div>
             <div>

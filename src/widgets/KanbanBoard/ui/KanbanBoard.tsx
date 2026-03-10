@@ -24,8 +24,8 @@ export const KanbanBoard = ({ boardId }: IProps) => {
 
    const content = useMemo(() => {
       if (isLoading) return (
-         <div className="flex gap-4 min-w-max">
-            {Array.from({ length: 4 }).map((_, i) => <ColumnSkeleton key={i} />)}
+         <div className="flex gap-4 min-w-max max-md:gap-2">
+            {Array.from({ length: 3 }).map((_, i) => <ColumnSkeleton key={i} />)}
          </div>
       )
 
