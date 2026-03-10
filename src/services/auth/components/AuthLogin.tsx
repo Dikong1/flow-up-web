@@ -73,12 +73,6 @@ export const AuthLogin = ({ setHaveAccount, className }: IProps) => {
 									<FormItem>
 										<div className="flex items-center">
 											<FormLabel>{t('auth.password')}</FormLabel>
-											<a
-												href="#"
-												className="ml-auto text-sm underline-offset-2 hover:underline"
-											>
-												{t('auth.forgotPassword', { defaultValue: 'Forgot your password?' })}
-											</a>
 										</div>
 										<FormControl>
 											<Input type="password" placeholder="******" {...field} />
