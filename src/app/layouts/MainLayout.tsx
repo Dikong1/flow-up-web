@@ -4,10 +4,6 @@ import { AppSidebar } from "@/widgets/AppSidebar";
 import { useWsNotifications } from "@/shared/hooks/use-ws-notifications";
 import { SidebarProvider, SidebarTrigger } from "@/shared/ui/shadcn/sidebar";
 import { useNProgress } from "@/shared/hooks/use-n-progress";
-import { NotVerifiedBlock } from "@/shared/ui/NotVefiriedBlock";
-import { useAppSelector } from "@/shared/hooks/redux";
-import { selectAuth } from "@/store/slices/auth-slice";
-
 
 const PageLoader = () => {
    useNProgress(true);
@@ -16,13 +12,11 @@ const PageLoader = () => {
 };
 
 export const MainLayout = () => {
-   const { isEmailVerified } = useAppSelector(selectAuth)
    useWsNotifications();
 
    return (
       <>
          <Suspense fallback={<PageLoader />}>
-            {!isEmailVerified && <NotVerifiedBlock />}
             <SidebarProvider>
                <AppSidebar />
                <main className="flex-1 min-w-0">
