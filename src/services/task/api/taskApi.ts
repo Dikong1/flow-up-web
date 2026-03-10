@@ -48,36 +48,36 @@ export const taskApi = baseApi.injectEndpoints({
                assigneeId: assignee?.id ?? null,
             },
          }),
-         // async onQueryStarted(
-         //    { boardId, colId, taskId, body, assignee },
-         //    { dispatch, queryFulfilled }
-         // ) {
-         //    const patch = dispatch(
-         //       taskApi.util.updateQueryData(
-         //          "getTaskById",
-         //          { boardId, colId, taskId },
-         //          (draft) => {
-         //             if (!draft) return;
+         async onQueryStarted(
+            { boardId, colId, taskId, body, assignee },
+            { dispatch, queryFulfilled }
+         ) {
+            const patch = dispatch(
+               taskApi.util.updateQueryData(
+                  "getTaskById",
+                  { boardId, colId, taskId },
+                  (draft) => {
+                     if (!draft) return;
 
-         //             if (body.name !== undefined) draft.name = body.name;
-         //             if (body.priorityId !== undefined) draft.priorityId = body.priorityId;
-         //             if (body.dueDate !== undefined) draft.dueDate = body.dueDate;
-         //             if (body.description !== undefined) draft.description = body.description;
+                     if (body.name !== undefined) draft.name = body.name;
+                     if (body.priorityId !== undefined) draft.priorityId = body.priorityId;
+                     if (body.dueDate !== undefined) draft.dueDate = body.dueDate;
+                     if (body.description !== undefined) draft.description = body.description;
 
-         //             if (assignee !== undefined) {
-         //                draft.assignee = assignee;
-         //                draft.assigneeId = assignee?.id ?? undefined;
-         //             }
-         //          }
-         //       )
-         //    );
+                     if (assignee !== undefined) {
+                        draft.assignee = assignee;
+                        draft.assigneeId = assignee?.id ?? undefined;
+                     }
+                  }
+               )
+            );
 
-         //    try {
-         //       await queryFulfilled;
-         //    } catch {
-         //       patch.undo();
-         //    }
-         // },
+            try {
+               await queryFulfilled;
+            } catch {
+               patch.undo();
+            }
+         },
          invalidatesTags: (_, __, { colId, taskId }) => [
             { type: "Columns", id: colId },
             { type: "Task", id: taskId },
