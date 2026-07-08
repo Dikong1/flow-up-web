@@ -1,1 +1,1 @@
-export type TWorkspaceRole = 'OWNER' | 'EDITOR' | 'MEMBER'
+export type TWorkspaceRole = 'OWNER' | 'EDITOR' | 'MEMBER';

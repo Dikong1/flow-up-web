@@ -1,9 +1,9 @@
-import type { IWorkspace } from "../../types/workspace";
+import type { IWorkspace } from '../../types/workspace';
 
 export interface CreateWorkspaceBody {
-   name: string;
+    name: string;
 }
 export interface CreateWorkspaceArgs {
-   body: CreateWorkspaceBody;
+    body: CreateWorkspaceBody;
 }
 export type CreateWorkspaceResponse = IWorkspace;

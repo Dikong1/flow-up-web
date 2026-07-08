@@ -1,3 +1,6 @@
-import type { ITask } from "./task";
+import type { ITask } from './task';
 
-export type ITaskPreview = Pick<ITask, 'id' | 'name' | 'priority' | 'colId' | 'order' | 'dueDate'>;
+export type ITaskPreview = Pick<
+    ITask,
+    'id' | 'name' | 'priority' | 'colId' | 'order' | 'dueDate'
+>;

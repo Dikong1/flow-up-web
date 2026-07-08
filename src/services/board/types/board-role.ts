@@ -1,1 +1,1 @@
-export type TBoardRole = 'OWNER' | 'EDITOR' | 'VIEWER'
+export type TBoardRole = 'OWNER' | 'EDITOR' | 'VIEWER';

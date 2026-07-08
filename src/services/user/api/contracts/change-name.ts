@@ -1,6 +1,6 @@
 export interface ChangeNameBody {
-   name: string;
+    name: string;
 }
 export interface ChangeNameArgs {
-   body: ChangeNameBody;
+    body: ChangeNameBody;
 }

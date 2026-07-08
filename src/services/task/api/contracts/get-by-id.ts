@@ -1,8 +1,8 @@
-import type { ITask } from "../../types/task";
+import type { ITask } from '../../types/task';
 
 export interface GetTaskByIdArgs {
-   boardId: string;
-   colId: string;
-   taskId: string;
+    boardId: string;
+    colId: string;
+    taskId: string;
 }
 export type GetTaskByIdResponse = ITask;

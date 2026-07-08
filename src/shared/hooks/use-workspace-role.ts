@@ -1,19 +1,24 @@
-import { useGetWorkspaceMembersQuery, useGetWorkspaceQuery } from "@/services/workspace/api/hooks/";
+import {
+    useGetWorkspaceMembersQuery,
+    useGetWorkspaceQuery,
+} from '@/services/workspace/api/hooks/';
 
-export const useWorkspaceRole = (workspaceId: string, userId: string | undefined) => {
-	const { data: workspace } = useGetWorkspaceQuery(workspaceId)
-	const isOwner = workspace?.ownerId === userId
+export const useWorkspaceRole = (
+    workspaceId: string,
+    userId: string | undefined,
+) => {
+    const { data: workspace } = useGetWorkspaceQuery(workspaceId);
+    const isOwner = workspace?.ownerId === userId;
 
-	const { data: members } = useGetWorkspaceMembersQuery(workspaceId, {
-		skip: isOwner
-	})
+    const { data: members } = useGetWorkspaceMembersQuery(workspaceId, {
+        skip: isOwner,
+    });
 
-	if (isOwner) return 'OWNER'
+    if (isOwner) return 'OWNER';
 
-	const userRole = members?.find(m => m.userId === userId)?.role
+    const userRole = members?.find((m) => m.userId === userId)?.role;
 
-	if (userRole) {
-		return userRole
-	}
-}
-
+    if (userRole) {
+        return userRole;
+    }
+};

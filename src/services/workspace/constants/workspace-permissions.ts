@@ -1,32 +1,76 @@
-import type { IWorkspacePermission } from "../types/workspace-permission";
-import type { TWorkspaceRole } from "../types/workspace-role";
+import type { IPermissionContext } from '../types/permission-context';
 
-export const WORKSPACE_ROLE_PERMISSIONS: Record<TWorkspaceRole, IWorkspacePermission> = {
-   OWNER: {
-      canCreateBoard: true,
-      canDeleteBoard: true,
-      canInviteMember: true,
-      canDeleteMember: true,
-      canChangeRole: true,
-      canEditWorkspace: true,
-      canDeleteWorkspace: true
-   },
-   EDITOR: {
-      canCreateBoard: true,
-      canDeleteBoard: false,
-      canInviteMember: true,
-      canDeleteMember: false,
-      canChangeRole: false,
-      canEditWorkspace: true,
-      canDeleteWorkspace: false
-   },
-   MEMBER: {
-      canCreateBoard: false,
-      canDeleteBoard: false,
-      canInviteMember: false,
-      canDeleteMember: false,
-      canChangeRole: false,
-      canEditWorkspace: false,
-      canDeleteWorkspace: false
-   }
-} as const
+// --- Workspace ---
+export const canEditWorkspace = (ctx: IPermissionContext): boolean =>
+    ctx.workspaceRole === 'OWNER' || ctx.workspaceRole === 'EDITOR';
+
+export const canDeleteWorkspace = (ctx: IPermissionContext): boolean =>
+    ctx.workspaceRole === 'OWNER';
+
+// --- Members ---
+export const canInviteMember = (ctx: IPermissionContext): boolean =>
+    ctx.workspaceRole === 'OWNER' || ctx.workspaceRole === 'EDITOR';
+
+export const canDeleteMember = (ctx: IPermissionContext): boolean =>
+    ctx.workspaceRole === 'OWNER';
+
+export const canChangeRole = (ctx: IPermissionContext): boolean =>
+    ctx.workspaceRole === 'OWNER';
+
+// --- Board ---
+export const canCreateBoard = (ctx: IPermissionContext): boolean =>
+    ctx.workspaceRole === 'OWNER' || ctx.workspaceRole === 'EDITOR';
+
+export const canEditBoard = (ctx: IPermissionContext): boolean =>
+    ctx.workspaceRole === 'OWNER' || ctx.workspaceRole === 'EDITOR';
+
+export const canDeleteBoard = (ctx: IPermissionContext): boolean =>
+    ctx.workspaceRole === 'OWNER';
+
+// --- Column ---
+export const canCreateColumn = (ctx: IPermissionContext): boolean =>
+    ctx.workspaceRole === 'OWNER' || ctx.workspaceRole === 'EDITOR';
+
+export const canEditColumn = (ctx: IPermissionContext): boolean =>
+    ctx.workspaceRole === 'OWNER' || ctx.workspaceRole === 'EDITOR';
+
+export const canDeleteColumn = (ctx: IPermissionContext): boolean =>
+    ctx.workspaceRole === 'OWNER' || ctx.workspaceRole === 'EDITOR';
+
+// --- Task ---
+export const canCreateTask = (ctx: IPermissionContext): boolean =>
+    ctx.workspaceRole === 'OWNER' || ctx.workspaceRole === 'EDITOR';
+
+export const canEditTask = (ctx: IPermissionContext): boolean => {
+    if (ctx.workspaceRole === 'OWNER' || ctx.workspaceRole === 'EDITOR')
+        return true;
+    if (ctx.isAssignee) return true;
+    return false;
+};
+
+export const canDeleteTask = (ctx: IPermissionContext): boolean =>
+    ctx.workspaceRole === 'OWNER' || ctx.workspaceRole === 'EDITOR';
+
+export const canMoveTask = (ctx: IPermissionContext): boolean => {
+    if (ctx.workspaceRole === 'OWNER' || ctx.workspaceRole === 'EDITOR')
+        return true;
+    if (ctx.isAssignee) return true;
+    return false;
+};
+
+// --- Comments ---
+export const canCreateComment = (ctx: IPermissionContext): boolean => {
+    if (ctx.workspaceRole === 'OWNER' || ctx.workspaceRole === 'EDITOR')
+        return true;
+    if (ctx.isAssignee) return true;
+    return false;
+};
+
+export const canEditComment = (ctx: IPermissionContext): boolean =>
+    !!ctx.isAssignee;
+
+export const canDeleteComment = (ctx: IPermissionContext): boolean => {
+    if (ctx.workspaceRole === 'OWNER') return true;
+    if (ctx.isAssignee) return true;
+    return false;
+};

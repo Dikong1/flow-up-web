@@ -1,6 +1,4 @@
-import { userActivityApi } from "../user-activity-api";
+import { userActivityApi } from '../user-activity-api';
 
-export const {
-   useGetRecentTasksQuery,
-   useCreateTrackTaskMutation,
-} = userActivityApi;
+export const { useGetRecentTasksQuery, useCreateTrackTaskMutation } =
+    userActivityApi;

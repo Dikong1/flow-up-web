@@ -1,13 +1,13 @@
-import type { TWorkspaceRole } from "../../types/workspace-role";
+import type { TWorkspaceRole } from '../../types/workspace-role';
 
 export interface AddMemberBody {
-   role: TWorkspaceRole;
-   expiresIn: number;
+    role: TWorkspaceRole;
+    expiresIn: number;
 }
 export interface AddMemberArgs {
-   id: string;
-   body: AddMemberBody;
+    id: string;
+    body: AddMemberBody;
 }
 export interface AddMemberResponse {
-   inviteUrl: string;
+    inviteUrl: string;
 }

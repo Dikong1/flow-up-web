@@ -1,10 +1,10 @@
-import { authApi } from "../authApi";
+import { authApi } from '../authApi';
 
 export const {
-   useRegisterMutation,
-   useLoginMutation,
-   useRefreshMutation,
-   useLogoutMutation,
-   useSendCodeMutation,
-   useVerifyCodeMutation,
+    useRegisterMutation,
+    useLoginMutation,
+    useRefreshMutation,
+    useLogoutMutation,
+    useSendCodeMutation,
+    useVerifyCodeMutation,
 } = authApi;

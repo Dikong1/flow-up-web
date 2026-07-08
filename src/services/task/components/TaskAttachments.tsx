@@ -1,91 +1,99 @@
-import { useRef } from "react";
-import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
-import { TaskAttachment } from "./TaskAttachment";
-import { TaskUploadAttachment } from "./TaskUploadAttachment";
-import { useLazyGetDownloadPresignedUrlQuery, } from "../api/hooks";
-import { useAppSelector } from "@/shared/hooks/redux";
-import { selectPermissions } from "@/store/slices/board-slice";
-import type { ITaskAttachment } from "../types/task-attachment";
+import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
+import { useWorkspacePermissions } from '@/services/workspace/hooks/use-workspace-permissions';
+import { useLazyGetDownloadPresignedUrlQuery } from '../api/hooks';
+import { TaskAttachment } from './TaskAttachment';
+import { TaskUploadAttachment } from './TaskUploadAttachment';
+
+import type { ITaskAttachment } from '../types/task-attachment';
 
 interface IProps {
-   boardId: string;
-   colId: string;
-   taskId: string;
-   attachments: ITaskAttachment[];
+    boardId: string;
+    colId: string;
+    taskId: string;
+    attachments: ITaskAttachment[];
 }
 
-export const TaskAttachments = ({ boardId, colId, taskId, attachments }: IProps) => {
-   const { t } = useTranslation();
-   const permissions = useAppSelector(selectPermissions);
-   const [getDownloadUrl] = useLazyGetDownloadPresignedUrlQuery();
-   const objectUrlRef = useRef<string | null>(null);
+export const TaskAttachments = ({
+    boardId,
+    colId,
+    taskId,
+    attachments,
+}: IProps) => {
+    const { t } = useTranslation();
+    const [getDownloadUrl] = useLazyGetDownloadPresignedUrlQuery();
+    const { permissions } = useWorkspacePermissions({});
 
-   const handleDownload = async (attId: string, fileName: string) => {
-      const toastId = toast.loading(t("task.attachments.downloadLoading"));
+    const objectUrlRef = useRef<string | null>(null);
 
-      try {
-         const { url } = await getDownloadUrl({
-            boardId,
-            colId,
-            taskId,
-            attachmentId: attId,
-         }).unwrap();
+    const handleDownload = async (attId: string, fileName: string) => {
+        const toastId = toast.loading(t('task.attachments.downloadLoading'));
 
-         const r = await fetch(url);
-         if (!r.ok) throw new Error(`Download failed: ${r.status}`);
+        try {
+            const { url } = await getDownloadUrl({
+                boardId,
+                colId,
+                taskId,
+                attachmentId: attId,
+            }).unwrap();
 
-         const blob = await r.blob();
+            const r = await fetch(url);
+            if (!r.ok) throw new Error(`Download failed: ${r.status}`);
 
-         if (objectUrlRef.current) {
-            URL.revokeObjectURL(objectUrlRef.current);
+            const blob = await r.blob();
+
+            if (objectUrlRef.current) {
+                URL.revokeObjectURL(objectUrlRef.current);
+                objectUrlRef.current = null;
+            }
+
+            const objectUrl = URL.createObjectURL(blob);
+            objectUrlRef.current = objectUrl;
+
+            const a = document.createElement('a');
+            a.href = objectUrl;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+
+            URL.revokeObjectURL(objectUrl);
             objectUrlRef.current = null;
-         }
 
-         const objectUrl = URL.createObjectURL(blob);
-         objectUrlRef.current = objectUrl;
+            toast.dismiss(toastId);
+        } catch (e: any) {
+            toast.error(t('task.attachments.downloadError'), { id: toastId });
+        }
+    };
 
-         const a = document.createElement("a");
-         a.href = objectUrl;
-         a.download = fileName;
-         document.body.appendChild(a);
-         a.click();
-         a.remove();
-
-         URL.revokeObjectURL(objectUrl);
-         objectUrlRef.current = null;
-
-         toast.dismiss(toastId);
-      } catch (e: any) {
-         toast.error(t("task.attachments.downloadError"), { id: toastId });
-      }
-   };
-
-   return (
-      <>
-         <div className="flex flex-col gap-2 mb-5">
-            {attachments.length > 0 ? (
-               attachments.map((att) => (
-                  <TaskAttachment
-                     key={att.id}
-                     onDownload={() => handleDownload(att.id, att.filename)}
-                     att={att}
-                     boardId={boardId}
-                     colId={colId}
-                  />
-               ))
-            ) : (
-               <div className="text-muted-foreground italic">
-                  {t("task.attachments.empty")}
-               </div>
-            )}
-         </div>
-         <TaskUploadAttachment
-            boardId={boardId}
-            colId={colId}
-            taskId={taskId}
-            permissions={permissions}
-         />
-      </>
-   );
+    return (
+        <>
+            <div className="mb-5 flex flex-col gap-2">
+                {attachments.length > 0 ? (
+                    attachments.map((att) => (
+                        <TaskAttachment
+                            key={att.id}
+                            onDownload={() =>
+                                handleDownload(att.id, att.filename)
+                            }
+                            att={att}
+                            boardId={boardId}
+                            colId={colId}
+                        />
+                    ))
+                ) : (
+                    <div className="text-muted-foreground italic">
+                        {t('task.attachments.empty')}
+                    </div>
+                )}
+            </div>
+            <TaskUploadAttachment
+                boardId={boardId}
+                colId={colId}
+                taskId={taskId}
+                permissions={permissions}
+            />
+        </>
+    );
 };

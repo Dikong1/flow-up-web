@@ -1,14 +1,14 @@
-import type { BoardParams } from "./board-params";
+import type { BoardParams } from './board-params';
 
 export interface PresignUploadImageBody {
-   mimeType: string;
+    mimeType: string;
 }
 export interface PresignUploadImageArgs extends BoardParams {
-   body: PresignUploadImageBody;
+    body: PresignUploadImageBody;
 }
 export interface PresignUploadImageResponse {
-   uploadUrl: string;
-   publicUrl: string;
-   key: string;
-   method: "PUT";
+    uploadUrl: string;
+    publicUrl: string;
+    key: string;
+    method: 'PUT';
 }

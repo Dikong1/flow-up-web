@@ -1,9 +1,9 @@
-import type { IUser } from "../../types/user";
+import type { IUser } from '../../types/user';
 
 export interface CompleteUploadAvatarBody {
-   key: string;
+    key: string;
 }
 export interface CompleteUploadAvatarArgs {
-   body: CompleteUploadAvatarBody;
+    body: CompleteUploadAvatarBody;
 }
 export type CompleteUploadAvatarResponse = IUser;

@@ -1,11 +1,11 @@
-import type { ITask } from "../../types/task";
+import type { ITask } from '../../types/task';
 
 export interface CreateTaskArgs {
-   boardId: string;
-   colId: string;
-   body: CreateTaskBody;
+    boardId: string;
+    colId: string;
+    body: CreateTaskBody;
 }
 export interface CreateTaskBody {
-   name: string;
+    name: string;
 }
 export type CreateTaskResponse = ITask;

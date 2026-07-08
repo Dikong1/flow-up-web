@@ -1,3 +1,3 @@
-import type { AuthTokenResponse } from "./login";
+import type { AuthTokenResponse } from './login';
 
 export type RefreshResponse = AuthTokenResponse;

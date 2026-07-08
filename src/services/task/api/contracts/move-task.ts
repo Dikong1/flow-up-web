@@ -1,13 +1,13 @@
-import type { ITask } from "../../types/task";
+import type { ITask } from '../../types/task';
 
 export interface MoveTaskArgs {
-   boardId: string;
-   colId: string;
-   taskId: string;
-   body: MoveTaskBody;
+    boardId: string;
+    colId: string;
+    taskId: string;
+    body: MoveTaskBody;
 }
 export interface MoveTaskBody {
-   targetColId: string;
-   newOrder: number;
+    targetColId: string;
+    newOrder: number;
 }
 export type MoveTaskResponse = ITask;

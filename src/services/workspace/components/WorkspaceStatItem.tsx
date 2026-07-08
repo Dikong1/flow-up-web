@@ -1,24 +1,25 @@
-import { Progress } from "@/shared/ui/shadcn/progress";
-import type { LucideIcon } from "lucide-react";
+import { Progress } from '@/shared/ui/shadcn/progress';
+
+import type { LucideIcon } from 'lucide-react';
 
 interface IProps {
-   icon: LucideIcon;
-   progressValue: number;
-   label: string;
+    icon: LucideIcon;
+    progressValue: number;
+    label: string;
 }
 
 export const WorkspaceStatItem = ({
-   icon: Icon,
-   progressValue,
-   label,
+    icon: Icon,
+    progressValue,
+    label,
 }: IProps) => {
-   return (
-      <div className="p-5 border rounded-lg max-xl:col-span-full">
-         <div className="flex items-center gap-3 mb-5">
-            <Icon />
-            <div className="text-xl max-xl:text-lg">{label}</div>
-         </div>
-         <Progress value={progressValue} />
-      </div>
-   );
+    return (
+        <div className="rounded-lg border p-5 max-xl:col-span-full">
+            <div className="mb-5 flex items-center gap-3">
+                <Icon />
+                <div className="text-xl max-xl:text-lg">{label}</div>
+            </div>
+            <Progress value={progressValue} />
+        </div>
+    );
 };

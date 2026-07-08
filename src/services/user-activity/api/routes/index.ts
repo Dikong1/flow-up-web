@@ -1,3 +1,3 @@
 export const userActivityRoutes = {
-   root: () => "/recent-tasks",
+    root: () => '/recent-tasks',
 } as const;

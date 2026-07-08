@@ -1,12 +1,12 @@
-import type { ITaskComment } from "../../types/task-comment";
+import type { ITaskComment } from '../../types/task-comment';
 
 export interface AddCommentArgs {
-   boardId: string;
-   colId: string;
-   taskId: string;
-   body: AddCommentBody;
+    boardId: string;
+    colId: string;
+    taskId: string;
+    body: AddCommentBody;
 }
 export interface AddCommentBody {
-   content: string;
+    content: string;
 }
 export type AddCommentResponse = ITaskComment;

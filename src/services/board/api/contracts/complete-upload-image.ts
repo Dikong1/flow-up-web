@@ -1,9 +1,9 @@
-import type { BoardParams } from "./board-params";
+import type { BoardParams } from './board-params';
 
 export interface CompleteUploadImageBody {
-   key: string;
+    key: string;
 }
 export interface CompleteUploadImageArgs extends BoardParams {
-   body: CompleteUploadImageBody;
+    body: CompleteUploadImageBody;
 }
 export type CompleteUploadImageResponse = boolean;

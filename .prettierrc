@@ -1,0 +1,22 @@
+{
+    "singleQuote": true,
+    "trailingComma": "all",
+    "tabWidth": 4,
+    "plugins": [
+        "@ianvs/prettier-plugin-sort-imports",
+        "prettier-plugin-tailwindcss"
+    ],
+    "importOrder": [
+        "^react$",
+        "^next(/.*)?$",
+        "<THIRD_PARTY_MODULES>",
+        "^@/(.*)$",
+        "^[./]",
+        "",
+        "<TYPES>",
+        "<TYPES>^@/",
+        "<TYPES>^[./]"
+    ],
+    "importOrderSeparation": false,
+    "importOrderSortSpecifiers": true
+}

@@ -15,37 +15,37 @@ It communicates with the backend via REST and WebSocket, supports authentication
 
 ## Tech Stack
 
-* **Vite**
-* **React**
-* **TypeScript**
-* **Redux Toolkit**
-* **RTK Query**
-* **React Router**
-* **i18next**
-* **Tailwind CSS**
-* **shadcn/ui**
-* **socket.io-client**
-* **@hello-pangea/dnd**
-* **dayjs**
-* **zod**
+- **Vite**
+- **React**
+- **TypeScript**
+- **Redux Toolkit**
+- **RTK Query**
+- **React Router**
+- **i18next**
+- **Tailwind CSS**
+- **shadcn/ui**
+- **socket.io-client**
+- **@hello-pangea/dnd**
+- **dayjs**
+- **zod**
 
 ---
 
 ## Core Features
 
-* Workspace management
-* Kanban boards
-* Tasks CRUD
-* Drag & Drop (columns & tasks)
-* Comments system
-* File attachments
-* Image cropping before upload
-* Activity history tracking
-* Statistics dashboard
-* Role-based access control
-* JWT authentication (access + refresh tokens)
-* OAuth social login
-* Real-time updates via WebSocket
+- Workspace management
+- Kanban boards
+- Tasks CRUD
+- Drag & Drop (columns & tasks)
+- Comments system
+- File attachments
+- Image cropping before upload
+- Activity history tracking
+- Statistics dashboard
+- Role-based access control
+- JWT authentication (access + refresh tokens)
+- OAuth social login
+- Real-time updates via WebSocket
 
 ---
 
@@ -55,14 +55,14 @@ The project follows a modular feature-oriented structure inspired by feature-bas
 
 Key architectural decisions:
 
-* Centralized state management with **Redux Toolkit**
-* API layer implemented via **RTK Query**
-* Optimized caching and invalidation strategies
-* Real-time synchronization using **Socket.IO**
-* Strong runtime validation using **Zod**
-* Domain-based feature separation
-* Reusable UI components built with **shadcn/ui**
-* Clean separation between UI, business logic, and API layer
+- Centralized state management with **Redux Toolkit**
+- API layer implemented via **RTK Query**
+- Optimized caching and invalidation strategies
+- Real-time synchronization using **Socket.IO**
+- Strong runtime validation using **Zod**
+- Domain-based feature separation
+- Reusable UI components built with **shadcn/ui**
+- Clean separation between UI, business logic, and API layer
 
 ---
 
@@ -70,8 +70,8 @@ Key architectural decisions:
 
 ### Requirements
 
-* Node.js v24.11.0
-* npm
+- Node.js v24.11.0
+- npm
 
 ---
 

@@ -1,9 +1,9 @@
-import { userApi } from "../userApi";
+import { userApi } from '../userApi';
 
 export const {
-   useGetMeQuery,
-   usePresignUploadAvatarMutation,
-   useCompleteUploadAvatarMutation,
-   useChangeNameMutation,
-   useChangePasswordMutation,
+    useGetMeQuery,
+    usePresignUploadAvatarMutation,
+    useCompleteUploadAvatarMutation,
+    useChangeNameMutation,
+    useChangePasswordMutation,
 } = userApi;

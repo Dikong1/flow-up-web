@@ -1,13 +1,10 @@
-import { boardApi } from "../boardApi";
+import { boardApi } from '../boardApi';
 
 export const {
-   useGetBoardQuery,
-   useCreateBoardMutation,
-   useEditBoardMutation,
-   useGetMyBoardRoleQuery,
-   useGetBoardMembersQuery,
-   useChangeBoardRoleMutation,
-   useDeleteBoardMutation,
-   usePresignUploadImageMutation,
-   useCompleteUploadImageMutation,
+    useGetBoardQuery,
+    useCreateBoardMutation,
+    useEditBoardMutation,
+    useDeleteBoardMutation,
+    usePresignUploadImageMutation,
+    useCompleteUploadImageMutation,
 } = boardApi;

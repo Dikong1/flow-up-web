@@ -1,21 +1,22 @@
-import dayjs from "dayjs"
-import relativeTime from "dayjs/plugin/relativeTime"
-import i18n from "@/config/i18n/i18n"
-import isToday from "dayjs/plugin/isToday"
-import isYesterday from "dayjs/plugin/isYesterday"
-import localizedFormat from "dayjs/plugin/localizedFormat"
-import "dayjs/locale/ru"
-import "dayjs/locale/en"
+import dayjs from 'dayjs';
+import isToday from 'dayjs/plugin/isToday';
+import isYesterday from 'dayjs/plugin/isYesterday';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import i18n from '@/config/i18n/i18n';
 
-dayjs.extend(isToday)
-dayjs.extend(isYesterday)
-dayjs.extend(relativeTime)
-dayjs.extend(localizedFormat)
+import 'dayjs/locale/ru';
+import 'dayjs/locale/en';
 
-dayjs.locale(i18n.resolvedLanguage)
+dayjs.extend(isToday);
+dayjs.extend(isYesterday);
+dayjs.extend(relativeTime);
+dayjs.extend(localizedFormat);
 
-i18n.on("languageChanged", (lng) => {
-   dayjs.locale(lng)
-})
+dayjs.locale(i18n.resolvedLanguage);
 
-export default dayjs
+i18n.on('languageChanged', (lng) => {
+    dayjs.locale(lng);
+});
+
+export default dayjs;

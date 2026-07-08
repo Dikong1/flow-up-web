@@ -1,7 +1,7 @@
 export interface CreateTrackTaskBody {
-   taskId: string;
+    taskId: string;
 }
 export interface CreateTrackTaskArgs {
-   body: CreateTrackTaskBody;
+    body: CreateTrackTaskBody;
 }
 export type CreateTrackTaskResponse = void;

@@ -1,12 +1,12 @@
 export interface PresignUploadAvatarBody {
-   mimeType: string;
+    mimeType: string;
 }
 export interface PresignUploadAvatarArgs {
-   body: PresignUploadAvatarBody;
+    body: PresignUploadAvatarBody;
 }
 export interface PresignUploadAvatarResponse {
-   uploadUrl: string;
-   publicUrl: string;
-   key: string;
-   method: "PUT";
+    uploadUrl: string;
+    publicUrl: string;
+    key: string;
+    method: 'PUT';
 }

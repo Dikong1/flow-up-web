@@ -1,7 +1,7 @@
 export interface ChangePasswordBody {
-   oldPassword: string;
-   newPassword: string;
+    oldPassword: string;
+    newPassword: string;
 }
 export interface ChangePasswordArgs {
-   body: ChangePasswordBody;
+    body: ChangePasswordBody;
 }

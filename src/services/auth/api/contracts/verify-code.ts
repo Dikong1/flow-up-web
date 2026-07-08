@@ -1,7 +1,7 @@
 export interface VerifyCodeBody {
-   code: string;
+    code: string;
 }
 export interface VerifyCodeArgs {
-   body: VerifyCodeBody;
+    body: VerifyCodeBody;
 }
 export type VerifyCodeResponse = boolean;

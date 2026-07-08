@@ -1,22 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export const useIsTouchDevice = () => {
-   const [isTouchDevice, setIsTouchDevice] = useState(false);
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
 
-   useEffect(() => {
-      const mediaQuery = window.matchMedia("(pointer: coarse)");
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(pointer: coarse)');
 
-      const update = () => {
-         setIsTouchDevice(
-            mediaQuery.matches || navigator.maxTouchPoints > 0
-         );
-      };
+        const update = () => {
+            setIsTouchDevice(
+                mediaQuery.matches || navigator.maxTouchPoints > 0,
+            );
+        };
 
-      update();
-      mediaQuery.addEventListener("change", update);
+        update();
+        mediaQuery.addEventListener('change', update);
 
-      return () => mediaQuery.removeEventListener("change", update);
-   }, []);
+        return () => mediaQuery.removeEventListener('change', update);
+    }, []);
 
-   return isTouchDevice;
+    return isTouchDevice;
 };

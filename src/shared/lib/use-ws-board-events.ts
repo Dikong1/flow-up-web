@@ -1,69 +1,70 @@
-import { columnApi } from "@/services/column/api/columnApi"
-import type { IBoardEvents } from "../types/ws-events"
-import { useAppDispatch } from "../hooks/redux"
-import { taskApi } from "@/services/task/api/taskApi"
+import { columnApi } from '@/services/column/api/columnApi';
+import { taskApi } from '@/services/task/api/taskApi';
+import { useAppDispatch } from '../hooks/redux';
+
+import type { IBoardEvents } from '../types/ws-events';
 
 export const useWsBoardEvents = (userId: string | undefined) => {
-   const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
 
-   const onTaskCreated = (event: IBoardEvents["TASK_CREATED"]) => {
+    const onTaskCreated = (event: IBoardEvents['TASK_CREATED']) => {
+        console.log('TASK_CREATED', event);
+        if (event.actorId === userId) return;
 
-      console.log("TASK_CREATED", event)
-      if (event.actorId === userId) return
+        dispatch(
+            columnApi.util.invalidateTags([
+                { type: 'Columns', id: event.colId },
+            ]),
+        );
+    };
 
+    const onTaskUpdated = (event: IBoardEvents['TASK_UPDATED']) => {
+        console.log('TASK_UPDATED', event);
+        if (event.actorId === userId) return;
 
-      dispatch(
-         columnApi.util.invalidateTags([{ type: "Columns", id: event.colId }])
-      )
-   }
+        dispatch(
+            taskApi.util.invalidateTags([{ type: 'Task', id: event.taskId }]),
+        );
+    };
 
-   const onTaskUpdated = (event: IBoardEvents["TASK_UPDATED"]) => {
+    const onTaskDeleted = (event: IBoardEvents['TASK_DELETED']) => {
+        console.log('TASK_DELETED', event);
+        if (event.actorId === userId) return;
 
-      console.log("TASK_UPDATED", event)
-      if (event.actorId === userId) return
+        dispatch(
+            columnApi.util.invalidateTags([
+                { type: 'Columns', id: event.colId },
+            ]),
+        );
+    };
 
+    const onTaskCommented = (event: IBoardEvents['TASK_COMMENTED']) => {
+        console.log('TASK_COMMENTED', event);
+        if (event.actorId === userId) return;
 
-      dispatch(
-         taskApi.util.invalidateTags([{ type: 'Task', id: event.taskId }])
-      )
-   }
+        dispatch(
+            taskApi.util.invalidateTags([
+                { type: 'TaskComments', id: event.taskId },
+            ]),
+        );
+    };
 
-   const onTaskDeleted = (event: IBoardEvents["TASK_DELETED"]) => {
+    const onTaskMoved = (event: IBoardEvents['TASK_MOVED']) => {
+        console.log('TASK_MOVED', event);
 
-      console.log("TASK_DELETED", event)
-      if (event.actorId === userId) return
+        if (event.actorId === userId) return;
+        dispatch(
+            columnApi.util.invalidateTags([
+                { type: 'Columns', id: `LIST-${event.boardId}` },
+            ]),
+        );
+    };
 
-
-      dispatch(
-         columnApi.util.invalidateTags([{ type: "Columns", id: event.colId }])
-      )
-   }
-
-   const onTaskCommented = (event: IBoardEvents["TASK_COMMENTED"]) => {
-      console.log("TASK_COMMENTED", event)
-      if (event.actorId === userId) return
-
-
-      dispatch(
-         taskApi.util.invalidateTags([{ type: 'TaskComments', id: event.taskId }])
-      )
-   }
-
-   const onTaskMoved = (event: IBoardEvents["TASK_MOVED"]) => {
-      console.log("TASK_MOVED", event)
-
-      if (event.actorId === userId) return
-      dispatch(
-         columnApi.util.invalidateTags([{ type: "Columns", id: `LIST-${event.boardId}` }])
-      )
-   }
-
-
-   return {
-      onTaskCreated,
-      onTaskUpdated,
-      onTaskDeleted,
-      onTaskCommented,
-      onTaskMoved
-   }
-}
+    return {
+        onTaskCreated,
+        onTaskUpdated,
+        onTaskDeleted,
+        onTaskCommented,
+        onTaskMoved,
+    };
+};

@@ -1,10 +1,15 @@
-import { useGetWorkspaceQuery } from "@/services/workspace/api/hooks/"
-import { skipToken } from "@reduxjs/toolkit/query"
+import { skipToken } from '@reduxjs/toolkit/query';
+import { useParams } from 'react-router';
+import { useGetWorkspaceQuery } from '@/services/workspace/api/hooks/';
 
-export const useCurrentWorkspace = (workspaceId: string | undefined) => {
-   const { data } = useGetWorkspaceQuery(workspaceId ? workspaceId : skipToken)
+export const useCurrentWorkspace = () => {
+    const { workspaceId } = useParams<{ workspaceId: string }>();
+    const { data } = useGetWorkspaceQuery(
+        workspaceId ? workspaceId : skipToken,
+    );
 
-   return {
-      currentWorkspace: data ?? null
-   }
-}
+    return {
+        workspaceId,
+        currentWorkspace: data ?? null,
+    };
+};

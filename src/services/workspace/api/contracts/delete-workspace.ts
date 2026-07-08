@@ -1,6 +1,6 @@
-import type { IWorkspace } from "../../types/workspace";
+import type { IWorkspace } from '../../types/workspace';
 
 export interface DeleteWorkspaceArgs {
-   id: string;
+    id: string;
 }
 export type DeleteWorkspaceResponse = IWorkspace;

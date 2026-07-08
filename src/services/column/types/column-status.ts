@@ -1,1 +1,1 @@
-export type TColumnStatus = "TODO" | "IN_PROGRESS" | "DONE"
+export type TColumnStatus = 'TODO' | 'IN_PROGRESS' | 'DONE';

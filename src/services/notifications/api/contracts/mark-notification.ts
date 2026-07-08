@@ -1,6 +1,6 @@
-import type { Notification } from "../../types/notification";
+import type { Notification } from '../../types/notification';
 
 export interface MarkNotificationArgs {
-   id: string;
+    id: string;
 }
 export type MarkNotificationResponse = Notification;

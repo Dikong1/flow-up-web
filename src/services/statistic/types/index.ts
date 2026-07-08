@@ -1,46 +1,46 @@
 export interface IStatResponse {
-   flow: ITasksFlowSeries,
-   cumulative: ITaskCumulativeSeries,
-   byPriority: TaskCountByPriority
+    flow: ITasksFlowSeries;
+    cumulative: ITaskCumulativeSeries;
+    byPriority: TaskCountByPriority;
 }
 
 export interface TasksFlowPoint {
-   date: string // "YYYY-MM-DD"
-   created: number
-   completed: number
+    date: string; // "YYYY-MM-DD"
+    created: number;
+    completed: number;
 }
 
 export interface ITasksFlowSeries {
-   interval: "day" | "week" | "month"
-   from: string
-   to: string
-   series: TasksFlowPoint[]
+    interval: 'day' | 'week' | 'month';
+    from: string;
+    to: string;
+    series: TasksFlowPoint[];
 }
 
 export interface ITaskCumulativeSeries {
-   interval: string;
-   from: string;
-   to: string;
-   series: ITaskCumulativePoint[]
+    interval: string;
+    from: string;
+    to: string;
+    series: ITaskCumulativePoint[];
 }
 
 export interface ITaskCumulativePoint {
-   date: string;
-   all: number;
-   completed: number;
+    date: string;
+    all: number;
+    completed: number;
 }
 
 export interface TaskCumulativeChartPoint {
-   label: string
-   all: number
-   completed: number
-   remaining: number
+    label: string;
+    all: number;
+    completed: number;
+    remaining: number;
 }
 
 export interface TasksFlowChartPoint {
-   label: string
-   created: number
-   completed: number
+    label: string;
+    created: number;
+    completed: number;
 }
 
-export type TaskCountByPriority = Record<string, number>
+export type TaskCountByPriority = Record<string, number>;

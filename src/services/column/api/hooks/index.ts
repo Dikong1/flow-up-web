@@ -1,9 +1,9 @@
-import { columnApi } from "../columnApi";
+import { columnApi } from '../columnApi';
 
 export const {
-   useCreateColumnMutation,
-   useChangeOrderMutation,
-   useEditColumnMutation,
-   useGetAllColumnsQuery,
-   useDeleteColumnMutation
+    useCreateColumnMutation,
+    useChangeOrderMutation,
+    useEditColumnMutation,
+    useGetAllColumnsQuery,
+    useDeleteColumnMutation,
 } = columnApi;

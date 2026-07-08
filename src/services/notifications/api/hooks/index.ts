@@ -1,6 +1,4 @@
-import { notificationApi } from "../notification-api";
+import { notificationApi } from '../notification-api';
 
-export const {
-   useGetAllNotificationsQuery,
-   useMarkNotificationMutation,
-} = notificationApi;
+export const { useGetAllNotificationsQuery, useMarkNotificationMutation } =
+    notificationApi;

@@ -1,5 +1,3 @@
-import { statisticApi } from "../statisticsApi";
+import { statisticApi } from '../statisticsApi';
 
-export const {
-   useGetFullStatQuery,
-} = statisticApi;
+export const { useGetFullStatQuery } = statisticApi;
