@@ -8,6 +8,6 @@ export interface MoveTaskArgs {
 }
 export interface MoveTaskBody {
     targetColId: string;
-    newOrder: number;
+    newOrder?: number;
 }
 export type MoveTaskResponse = ITask;

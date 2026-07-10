@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { skipToken } from '@reduxjs/toolkit/query';
-import { ServerCrash } from 'lucide-react';
+import { ServerCrash, ListTodo, Kanban } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { useGetBoardQuery } from '@/services/board/api/hooks/';
@@ -14,6 +14,13 @@ import { Spinner } from '@/shared/ui/shadcn/spinner';
 import { setCurrentBoardId } from '@/store/slices/board-slice';
 import { selectUser } from '@/store/slices/user-slice';
 import { KanbanBoard } from '@/widgets/KanbanBoard/ui/KanbanBoard';
+import {
+    Tabs,
+    TabsContent,
+    TabsList,
+    TabsTrigger,
+} from '@/shared/ui/shadcn/tabs';
+import { TaskTableBlock } from '@/widgets/task-table/ui/task-table-block';
 
 const BoardPage = () => {
     const { boardId, workspaceId } = useParams();
@@ -68,9 +75,34 @@ const BoardPage = () => {
                 workspaceId={board.workspaceId}
                 boardId={board.id}
                 boardTitle={board.name}
-                currentWorkspace={currentWorkspace}
             />
-            <KanbanBoard boardId={board.id} />
+            <Tabs defaultValue="list" className="w-full">
+                <TabsList>
+                    <TabsTrigger
+                        value="list"
+                        className="flex items-center gap-1"
+                    >
+                        <ListTodo />
+                        <span>List</span>
+                    </TabsTrigger>
+                    <TabsTrigger
+                        value="kanban"
+                        className="flex items-center gap-1"
+                    >
+                        <Kanban />
+                        <span>Kanban</span>
+                    </TabsTrigger>
+                </TabsList>
+                <TabsContent value="list">
+                    <TaskTableBlock
+                        workspaceId={board.workspaceId}
+                        boardId={board.id}
+                    />
+                </TabsContent>
+                <TabsContent value="kanban">
+                    <KanbanBoard boardId={board.id} />
+                </TabsContent>
+            </Tabs>
             <TaskSheet />
         </>
     );

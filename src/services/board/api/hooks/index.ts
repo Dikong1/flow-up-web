@@ -7,4 +7,5 @@ export const {
     useDeleteBoardMutation,
     usePresignUploadImageMutation,
     useCompleteUploadImageMutation,
+    useGetTaskListQuery,
 } = boardApi;

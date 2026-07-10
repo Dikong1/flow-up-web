@@ -9,4 +9,7 @@ export const boardRoutes = {
 
     completeUploadAvatar: (workspaceId: string, boardId: string) =>
         `/workspaces/${workspaceId}/boards/${boardId}/image/complete`,
+
+    getTaskList: (workspaceId: string, boardId: string) =>
+        `/workspaces/${workspaceId}/boards/${boardId}/task-list`,
 } as const;

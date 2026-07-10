@@ -258,6 +258,7 @@
         "title": "Task",
         "create": "Create task",
         "edit": "Edit task",
+        "status": "Status",
         "delete": "Delete task",
         "description": "Description",
         "assignee": "Assignee",

@@ -19,6 +19,10 @@ import type {
     PresignUploadImageArgs,
     PresignUploadImageResponse,
 } from './contracts/presign-upload-image';
+import type {
+    GetTaskListArgs,
+    GetTaskListResponse,
+} from './contracts/get-task-list';
 
 export const boardApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -91,6 +95,16 @@ export const boardApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: (_, __, { workspaceId }) => [
                 { type: 'Workspace', id: workspaceId },
+            ],
+        }),
+
+        getTaskList: builder.query<GetTaskListResponse, GetTaskListArgs>({
+            query: ({ workspaceId, boardId }) => ({
+                url: boardRoutes.getTaskList(workspaceId, boardId),
+                method: 'GET',
+            }),
+            providesTags: (_, __, { boardId }) => [
+                { type: 'Board', id: boardId },
             ],
         }),
     }),
